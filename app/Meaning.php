@@ -9,7 +9,7 @@ class Meaning extends Model
     //
     protected $table = 'meanings';
 
-    public function scopeTop($query,$number)
+    public function scopeTop($query)
     {
         return $query->join('words', 'meanings.word_id', '=', 'words.id')
         				->join('authors', 'meanings.author_id', '=', 'authors.id')

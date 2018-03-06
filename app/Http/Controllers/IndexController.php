@@ -12,7 +12,7 @@ class IndexController extends Controller
 {
 	public function index()
 	{
-	    $data = Meaning::top(12);
+	    $data = Meaning::top();
 	    return view('index')->with('datas', $data);
 	    dd($data);
 	}

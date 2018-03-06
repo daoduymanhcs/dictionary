@@ -6,3 +6,10 @@ if (! function_exists('vi_slug')) {
 		return $slug;
     }
 }
+
+if(! function_exists('remove_text')) {
+	function remove_text($string) {
+		return preg_replace('/<[^>]+>/', '', $string);
+		// return $string;
+	}
+}

@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('/test', 'CrawlController@test');
+/*sub pages*/
+Route::get('contact', function () {
+    return view('contact');
+});
+
 // Route::resource('crawls', 'CrawlController');
 Route::get('login', 'AuthController@index');
 Route::post('login', 'AuthController@index');

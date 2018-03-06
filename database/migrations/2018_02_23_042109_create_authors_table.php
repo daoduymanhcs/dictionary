@@ -17,6 +17,8 @@ class CreateAuthorsTable extends Migration
             $table->increments('id');
             $table->string('author_name', 100)->nullable();
             $table->string('author_source', 100)->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }
