@@ -50,19 +50,25 @@ class CrawlController extends Controller
     }
     public function index()
     {
-        $links = $this->_getLinks();
-        foreach ($links as $key => $link) {
-            $url = 'http://www.xn--t-in-1ua7276b5ha.com'.$link;
-            echo $url.'<br>';
-            // $url = 'http://www.xn--t-in-1ua7276b5ha.com/d%E1%BA%A5u%20ch%E1%BA%A5m%20ph%E1%BA%A9y';
-            $this->_create($url);
-        }
+        foreach (range('A', 'Z') as $char) {
+            $url = "http://www.xn--t-in-1ua7276b5ha.com/".$char."/";
+            $links = $this->_getLinks($url);
+            foreach ($links as $key => $link) {
+                $pos = strpos($link, '?');
+                if ($pos === false) {
+                    $url = 'http://www.xn--t-in-1ua7276b5ha.com'.$link;
+                    echo $url.'<br>';
+                    $this->_create($url); 
+                }
+            }
+        } 
+        return view('admin/crawls');
     }
 
-    private function _getLinks()
+    private function _getLinks($url)
     {
         $client = new Client(['base_uri' => 'http://www.xn--t-in-1ua7276b5ha.com/']);
-        $response = $client->get('http://www.xn--t-in-1ua7276b5ha.com/%C3%A1o%20qu%E1%BA%A7n');
+        $response = $client->get($url);
         $body = $response->getBody();
         $remainingBytes = $body->getContents();
         $crawler = new Crawler($remainingBytes);

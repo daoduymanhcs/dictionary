@@ -31,5 +31,6 @@ Route::get('/{slug}', 'DetailController@index');
 
 
 Route::prefix('admin')->group(function () {
-	Route::resource('crawls', 'CrawlController');
+	Route::get('crawls', 'CrawlController@index');
+	Route::post('crawls', 'CrawlController@index');
 });
