@@ -50,7 +50,7 @@ class CrawlController extends Controller
     }
     public function index()
     {
-        foreach (range('A', 'Z') as $char) {
+        foreach (range('B', 'Z') as $char) {
             $url = "http://www.xn--t-in-1ua7276b5ha.com/".$char."/";
             $links = $this->_getLinks($url);
             foreach ($links as $key => $link) {
