@@ -22,15 +22,38 @@ class CrawlController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function test()
+    public function getData(Request $request)
     {
-        $crawler = file_get_contents('https://developer.mozilla.org/en-US/docs/Web/HTML/Element/plaintext');
-        $regex = '#<font.*?>(.+?)</b>(.+?)</p>#is'; 
-        preg_match_all($regex, $crawler, $matches);
-        $result = $this->_test($matches[1], $matches[2]);
-        dd($result);        
+        if ($request->isMethod('get')) {
+            # code...
+            return view('admin.crawlers.website_url');
+        }
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'regex' => 'required',
+                'urls' => 'required',
+            ]);
+            $data = $request->all();
+            $urls = trim($request->input('urls'));
+            $regex = trim($request->input('regex'));
+            $this->_get_content($urls, $regex);
+            return view('admin.crawlers.website_url')->with('urls', $request->input('urls'))
+                                                        ->with('regex', $request->input('regex'));
+            dd($data);
+        }      
     }
 
+    // get data
+    public function _get_content($url = null, $regex = null) {
+        $crawler = file_get_contents($url);
+        // $regex = '#<strong>(.+?)</strong>(.+?)</li>#is'; 
+        $regex = '#'.$regex.'#is'; 
+        preg_match_all($regex, $crawler, $matches);
+        $result = $this->_test($matches[1], $matches[2]);
+        dd($result);
+    }
+
+    // convert to result array
     public function _test($a = array(), $b = array())
     {
         $res = array();

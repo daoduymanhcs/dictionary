@@ -11,7 +11,13 @@
 |
 */
 
-Route::get('/test', 'CrawlController@test');
+Route::prefix('admin')->group(function () {
+	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('/getData', 'CrawlController@getData')->name('fetch_website');
+	Route::post('/getData', 'CrawlController@getData')->name('fetch_website');
+	Route::get('crawls', 'CrawlController@index');
+	Route::post('crawls', 'CrawlController@index');
+});
 /*sub pages*/
 Route::get('contact', function () {
     return view('contact');
@@ -24,13 +30,5 @@ Route::post('login', 'AuthController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', 'IndexController@index');
 Route::get('/{slug}', 'DetailController@index');
-
-
-Route::prefix('admin')->group(function () {
-	Route::get('crawls', 'CrawlController@index');
-	Route::post('crawls', 'CrawlController@index');
-});

@@ -71,7 +71,25 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <span class="badge">14</span>
+                        <a href="{{ route('fetch_website') }}">Fetch websites</a>
+                      </li>
+                      <li class="list-group-item">
+                        <span class="badge">14</span>
+                        Authors
+                      </li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
