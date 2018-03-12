@@ -24,27 +24,19 @@ class CrawlController extends Controller
 
     public function test()
     {
-/*                $client = new Client(['base_uri' => 'http://www.loa.com.vn']);
-        $response = $client->get('http://www.loa.com.vn/baiviet/thuatngumotaamthanhcualoa.htm');
-        dd($response);*/
-        $crawler = file_get_contents('http://www.loa.com.vn/baiviet/thuatngumotaamthanhcualoa.htm');
-        // dd($crawler);
-        /*$regex = '#<h1 id.*?>(.*?)</h1>.*?<span id.*?>(.*?)</span>#';*/
-        $regex = '#<font.*?>(.+?)</font>(.+?)</p>#is'; #<font color="#2f2f2f">Clear:</font>
+        $crawler = file_get_contents('https://developer.mozilla.org/en-US/docs/Web/HTML/Element/plaintext');
+        $regex = '#<font.*?>(.+?)</b>(.+?)</p>#is'; 
         preg_match_all($regex, $crawler, $matches);
-        // $test = array_combine($matches[1], $matches[2]);
-        // dd($matches[2]);
         $result = $this->_test($matches[1], $matches[2]);
         dd($result);        
     }
 
     public function _test($a = array(), $b = array())
     {
-        // dd($b);
         $res = array();
         foreach($a as $k => $v){
+            $v = remove_text($v);
             $res[$v] = remove_text($b[$k]);
-            // $res[$k] = array_merge($a[$k],$b[$k]);
         }
         return $res;
     }
