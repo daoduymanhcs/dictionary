@@ -17,6 +17,7 @@ Route::prefix('admin')->group(function () {
 	Route::post('/getData', 'CrawlController@getData')->name('fetch_website');
 	Route::get('crawls', 'CrawlController@index');
 	Route::post('crawls', 'CrawlController@index');
+	Route::get('validate', 'Admin\ValidateController@index')->name('validate');
 });
 /*sub pages*/
 Route::get('contact', function () {

@@ -30,4 +30,22 @@ class Meaning extends Model
                         ->select('words.word_name', 'words.core_name', 'meanings.meaning_meaning', 'meanings.meaning_like', 'meanings.meaning_dislike', 'meanings.meaning_sex', 'authors.author_name')
                         ->get();
     } 
+
+    public function scopeSearch($query, $word_id, $meaning_url)
+    {
+        return $query->where('word_id', '=', $word_id)->where('meaning_url', '=', $meaning_url)->get();
+    }
+
+    // validate
+    public function scopeValidate($query)
+    {
+        return $query->join('words', 'meanings.word_id', '=', 'words.id')
+                        ->join('authors', 'meanings.author_id', '=', 'authors.id')
+                        ->where('meanings.meaning_status', '=', 0)
+                        ->orderBy('meanings.id', 'desc')
+                        ->select('words.word_name', 'words.core_name', 'meanings.meaning_meaning', 'meanings.meaning_like', 'meanings.meaning_dislike', 'meanings.meaning_sex', 'authors.author_name')
+                        // ->limit($number)
+                        ->paginate(15);
+    } 
+
 }

@@ -36,9 +36,28 @@ class CrawlController extends Controller
             $data = $request->all();
             $urls = trim($request->input('urls'));
             $regex = trim($request->input('regex'));
-            $this->_get_content($urls, $regex);
+            $checkbox = trim($request->input('checkbox'));
+            $urls = explode("\n", $urls);
+            $urls = array_filter($urls, 'trim'); 
+            $results = array();
+            foreach ($urls as $key => $url) {
+                $url = trim($url);
+                $data = $this->_get_content($url, $regex);
+                $results = $results + $data;
+                if(isset($checkbox) &&  $checkbox) {
+                    foreach ($results as $word => $meaning) {
+                        $this->_recordAll($word, $meaning, $url);
+                    }
+                }
+            }
+            // action case
+            $request->session()->forget('status');
+            if(isset($checkbox) &&  $checkbox) {
+                $request->session()->flash('status', 'Task was successful!');
+            }
             return view('admin.crawlers.website_url')->with('urls', $request->input('urls'))
-                                                        ->with('regex', $request->input('regex'));
+                                                        ->with('regex', $request->input('regex'))
+                                                        ->with('results', $results);
             dd($data);
         }      
     }
@@ -49,8 +68,8 @@ class CrawlController extends Controller
         // $regex = '#<strong>(.+?)</strong>(.+?)</li>#is'; 
         $regex = '#'.$regex.'#is'; 
         preg_match_all($regex, $crawler, $matches);
-        $result = $this->_test($matches[1], $matches[2]);
-        dd($result);
+        $results = $this->_test($matches[1], $matches[2]);
+        return $results;
     }
 
     // convert to result array
@@ -62,6 +81,53 @@ class CrawlController extends Controller
             $res[$v] = remove_text($b[$k]);
         }
         return $res;
+    }
+
+    /*
+    * create authors, words, meanings
+    */
+    public function _recordAll($word = null, $meaning = null, $url = null) {
+        if(!empty($word) && !empty($meaning) && !empty($url)) {
+            $parse = parse_url($url);
+            $domain =  $parse['host'];
+            $author_id = $this->_author(trim($domain));
+            $core_name  = vi_slug($word);
+            $data = Word::row($core_name);
+            $dataArray = $data->toArray();
+            if(empty($dataArray)) 
+            {
+                $connection = new Word;
+                $connection->word_name = $word;
+                $connection->core_name = $core_name;
+                $test = $connection->save();
+
+                $CreateMeaning = new Meaning;
+                $CreateMeaning->word_id = $connection->id;
+                $CreateMeaning->author_id = $author_id;
+                $CreateMeaning->meaning_meaning = $meaning;
+                $CreateMeaning->meaning_url = $url;
+                $CreateMeaning->meaning_status = 0;
+                $CreateMeaning->meaning_like = rand(0,30);
+                $CreateMeaning->meaning_dislike = rand(0,30);
+                $CreateMeaning->save();
+            } else {
+                $wordArray = $dataArray[0];
+                $word_id = $wordArray['id'];
+                $checkMeaning = Meaning::search($word_id, $url);
+                $MeaningArray = $checkMeaning->toArray();
+                if(empty($MeaningArray)) {
+                    $CreateMeaning = new Meaning;
+                    $CreateMeaning->word_id = $word_id;
+                    $CreateMeaning->author_id = $author_id;
+                    $CreateMeaning->meaning_meaning = $meaning;
+                    $CreateMeaning->meaning_url = $url;
+                    $CreateMeaning->meaning_status = 0;
+                    $CreateMeaning->meaning_like = rand(0,30);
+                    $CreateMeaning->meaning_dislike = rand(0,30);
+                    $CreateMeaning->save();
+                }
+            } 
+        }
     }
     public function index()
     {
