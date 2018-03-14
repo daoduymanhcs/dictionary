@@ -13,11 +13,13 @@
 
 Route::prefix('admin')->group(function () {
 	Route::get('/', 'HomeController@index')->name('home');
-	Route::get('/getData', 'CrawlController@getData')->name('fetch_website');
+	Route::get('/getData', 'CrawlController@getInputWebsite')->name('fetch_website');
 	Route::post('/getData', 'CrawlController@getData')->name('fetch_website');
 	Route::get('crawls', 'CrawlController@index');
 	Route::post('crawls', 'CrawlController@index');
 	Route::get('validate', 'Admin\ValidateController@index')->name('validate');
+	Route::post('delete-meaning', 'Admin\ValidateController@deleteMeaning')->name('delete-meaning');
+	Route::post('update-meaning-status', 'Admin\ValidateController@updateMeaningStatus');
 });
 /*sub pages*/
 Route::get('contact', function () {

@@ -58,3 +58,8 @@ h2 {
   text-align: center;
   padding: 15px 0;
 }
+
+/*admin*/
+.btn-group-modify {
+  width: 0px;
+}

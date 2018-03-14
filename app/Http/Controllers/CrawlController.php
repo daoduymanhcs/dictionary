@@ -22,48 +22,48 @@ class CrawlController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getData(Request $request)
-    {
-        if ($request->isMethod('get')) {
-            # code...
-            return view('admin.crawlers.website_url');
-        }
-        if ($request->isMethod('post')) {
-            $request->validate([
-                'regex' => 'required',
-                'urls' => 'required',
-            ]);
-            $data = $request->all();
-            $urls = trim($request->input('urls'));
-            $regex = trim($request->input('regex'));
-            $checkbox = trim($request->input('checkbox'));
-            $urls = explode("\n", $urls);
-            $urls = array_filter($urls, 'trim'); 
-            $results = array();
-            foreach ($urls as $key => $url) {
-                $url = trim($url);
-                $data = $this->_get_content($url, $regex);
-                $results = $results + $data;
-                if(isset($checkbox) &&  $checkbox) {
-                    foreach ($results as $word => $meaning) {
-                        $this->_recordAll($word, $meaning, $url);
-                    }
-                }
-            }
-            // action case
-            $request->session()->forget('status');
-            if(isset($checkbox) &&  $checkbox) {
-                $request->session()->flash('status', 'Task was successful!');
-            }
-            return view('admin.crawlers.website_url')->with('urls', $request->input('urls'))
-                                                        ->with('regex', $request->input('regex'))
-                                                        ->with('results', $results);
-            dd($data);
-        }      
+    public function getInputWebsite() {
+        return view('admin.crawlers.website_url');
     }
 
-    // get data
-    public function _get_content($url = null, $regex = null) {
+    public function getData(Request $request)
+    {
+        $request->validate([
+            'regex' => 'required',
+            'urls' => 'required',
+        ]);
+        $urls = trim($request->input('urls'));
+        $regex = trim($request->input('regex'));
+        $checkbox = trim($request->input('checkbox'));
+        // convert textarea string into array
+        $urls = explode("\n", str_replace("\r", "", $urls));
+        $results = array();
+        $TotalWordAndMeaningArray = $this->UrlAndRegex($urls, $regex, $checkbox);
+        // action case
+        $request->session()->forget('status');
+        if(isset($checkbox) &&  $checkbox) {
+            $request->session()->flash('status', 'success!');
+        }
+        return view('admin.crawlers.website_url')->with('urls', $request->input('urls'))
+                                                    ->with('regex', $request->input('regex'))
+                                                    ->with('results', $TotalWordAndMeaningArray); 
+    }
+
+    public function UrlAndRegex($urls, $regex, $checkbox) {
+        $TotalWordAndMeaningArray = array();
+        foreach ($urls as $url) {
+            $WordAndMeaningArray = $this->getWordAndMeaning($url, $regex);
+            if(isset($checkbox) &&  $checkbox) {
+                foreach ($WordAndMeaningArray as $word => $meaning) {
+                    $this->createWordMeaningAuthor($word, $meaning, $url);
+                }
+            }
+            $TotalWordAndMeaningArray = $TotalWordAndMeaningArray + $WordAndMeaningArray;
+        }
+        return $TotalWordAndMeaningArray;
+    }
+    // get word and meaning array
+    public function getWordAndMeaning($url = null, $regex = null) {
         $crawler = file_get_contents($url);
         // $regex = '#<strong>(.+?)</strong>(.+?)</li>#is'; 
         $regex = '#'.$regex.'#is'; 
@@ -86,8 +86,8 @@ class CrawlController extends Controller
     /*
     * create authors, words, meanings
     */
-    public function _recordAll($word = null, $meaning = null, $url = null) {
-        if(!empty($word) && !empty($meaning) && !empty($url)) {
+    public function createWordMeaningAuthor($word = null, $meaning = null, $url) {
+        if(!empty($word) && !empty($meaning)) {
             $parse = parse_url($url);
             $domain =  $parse['host'];
             $author_id = $this->_author(trim($domain));
@@ -100,32 +100,11 @@ class CrawlController extends Controller
                 $connection->word_name = $word;
                 $connection->core_name = $core_name;
                 $test = $connection->save();
-
-                $CreateMeaning = new Meaning;
-                $CreateMeaning->word_id = $connection->id;
-                $CreateMeaning->author_id = $author_id;
-                $CreateMeaning->meaning_meaning = $meaning;
-                $CreateMeaning->meaning_url = $url;
-                $CreateMeaning->meaning_status = 0;
-                $CreateMeaning->meaning_like = rand(0,30);
-                $CreateMeaning->meaning_dislike = rand(0,30);
-                $CreateMeaning->save();
+                $this->createMeaning($connection->id, $author_id, $meaning);
             } else {
                 $wordArray = $dataArray[0];
                 $word_id = $wordArray['id'];
-                $checkMeaning = Meaning::search($word_id, $url);
-                $MeaningArray = $checkMeaning->toArray();
-                if(empty($MeaningArray)) {
-                    $CreateMeaning = new Meaning;
-                    $CreateMeaning->word_id = $word_id;
-                    $CreateMeaning->author_id = $author_id;
-                    $CreateMeaning->meaning_meaning = $meaning;
-                    $CreateMeaning->meaning_url = $url;
-                    $CreateMeaning->meaning_status = 0;
-                    $CreateMeaning->meaning_like = rand(0,30);
-                    $CreateMeaning->meaning_dislike = rand(0,30);
-                    $CreateMeaning->save();
-                }
+                $this->createMeaning($word_id, $author_id, $meaning);
             } 
         }
     }
@@ -248,6 +227,21 @@ class CrawlController extends Controller
         } else {
             $author = $dataArray[0];
             return $author['id'];            
+        }
+    }
+
+    private function createMeaning($word_id, $author_id, $meaning) {
+        $checkMeaning = Meaning::search($word_id, $author_id);
+        $MeaningArray = $checkMeaning->toArray();
+        if(empty($MeaningArray)) {
+            $CreateMeaning = new Meaning;
+            $CreateMeaning->word_id = $word_id;
+            $CreateMeaning->author_id = $author_id;
+            $CreateMeaning->meaning_meaning = $meaning;
+            $CreateMeaning->meaning_status = 0;
+            $CreateMeaning->meaning_like = rand(0,30);
+            $CreateMeaning->meaning_dislike = rand(0,30);
+            $CreateMeaning->save();
         }
     }
     /**
