@@ -21,6 +21,10 @@ Route::prefix('admin')->group(function () {
 	Route::post('delete-meaning', 'Admin\ValidateController@deleteMeaning')->name('delete-meaning');
 	Route::post('update-meaning-status', 'Admin\ValidateController@updateMeaningStatus');
 });
+
+// action frontend
+Route::post('update-meaning-like', 'Object\MeaningController@updateMeaningLike');
+
 /*sub pages*/
 Route::get('contact', function () {
     return view('contact');

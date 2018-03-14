@@ -15,7 +15,7 @@ class Meaning extends Model
         				->join('authors', 'meanings.author_id', '=', 'authors.id')
         				->where('meanings.meaning_status', '=', 1)
         				->orderBy('meanings.updated_at', 'desc')
-        				->select('words.word_name', 'words.core_name', 'meanings.meaning_meaning', 'meanings.meaning_like', 'meanings.meaning_dislike', 'meanings.meaning_sex', 'authors.author_name')
+        				->select('words.word_name', 'words.core_name', 'meanings.id', 'meanings.meaning_meaning', 'meanings.meaning_like', 'meanings.meaning_dislike', 'meanings.meaning_sex', 'authors.author_name')
 				        // ->limit($number)
 				        ->paginate(15);
     } 

@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="panel panel-default">
-        <div class="panel-heading">Total {{$datas->total()}}</div>
-
+        <div class="panel-heading">Total {{$datas->total()}} <a class="pull-right" href="{{Route('validate')}}"><i class="fas fa-sync"></i></a></div>
         <div class="panel-body">
             <table class="table">
               <thead>
@@ -21,9 +20,6 @@
                     <td>{{ucfirst($data->word_name)}}</td>
                     <td>{{$data->meaning_meaning}}</td>
                     <td>
-<!--                         <span type="button" class="btn btn-info">Info</span>
-                        <span type="button" class="btn btn-warning" onclick="myFunction()">Warning</span>
-                        <span type="button" class="btn btn-danger">Danger</span> -->
                       <div class="btn-group btn-group-justified btn-group-modify" role="group" aria-label="...">
                         <div class="btn-group" role="group">
                           <button type="button" class="btn btn-primary"><i class="far fa-edit"></i></button>
@@ -76,7 +72,6 @@
           data: { meaning_id: $id},
           dataType: 'JSON',
           success: function(response){
-            console.log(response.status);
             if(response.status) {
               $( "#" + response.id).hide();
             }

@@ -36,7 +36,7 @@
             <div class="form-group">
               <label for="regex">Suggestion</label>
               <textarea class="form-control" id="textUrl" rows="7" value="" name="">
-                <tr.*?>.*?<td.*?>aaa</td>.*?<td.*?>aaa</td>.*?</tr>
+                <tr.*?>.*?<td.*?>(.+?)</td>.*?<td.*?>(.+?)</td>.*?</tr>
                 <strong>(.+?)</strong>(.+?)</p>
                 <h[0-9]>(.+?)</h[0-9]>(.+?)</p>
                 <b>(.+?)</b>(.+?)</p>

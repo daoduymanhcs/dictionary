@@ -78,11 +78,11 @@
                 <div class="col-md-3">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <span class="badge">14</span>
+                        <!-- <span class="badge">14</span> -->
                         <a href="{{ route('fetch_website') }}">Fetch websites</a>
                       </li>
                       <li class="list-group-item">
-                        <span class="badge">14</span>
+                        <!-- <span class="badge">14</span> -->
                         <a href="{{ route('validate') }}">Validate</a>
                       </li>
                     </ul>
