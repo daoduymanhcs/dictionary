@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="{{ isset($word) ? 'Từ điển có '.count($datas).' ý nghĩa của '.$word.'.Bạn có thể thêm ý nghĩa của mình. ' : 'Từ điển luôn cập nhật thuật ngữ mới nhất, xu hướng nhất. Bạn có thể giúp đỡ cộng đồng bằng cách thêm từ và ý nghĩa mới.' }}">
+    <meta name="description" content="{{ isset($word) ? 'Từ điển có '.count($datas).' ý nghĩa của '.$word.'.Bạn có thể thêm ý nghĩa của từ '.$word : 'Từ điển luôn cập nhật thuật ngữ mới nhất, xu hướng nhất. Bạn có thể giúp đỡ cộng đồng bằng cách thêm từ và ý nghĩa mới.' }}">
     <meta name="author" content="">
     <link rel="icon" href="https://getbootstrap.com/docs/3.3/favicon.ico">
 
@@ -32,13 +32,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">DICTIONARY</a>
+          <a class="navbar-brand" href="/">HOME</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
           <ul class="nav navbar-nav">
-            <li class=""><a href="/">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
+<!--             <li class=""><a href="/">Home</a></li>
+            <li><a href="#about">About</a></li> -->
+            <li><a href="/contact">Liên hệ</a></li>
 <!--             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">

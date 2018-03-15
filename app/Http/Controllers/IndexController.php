@@ -16,6 +16,5 @@ class IndexController extends Controller
 	{
 	    $data = Meaning::top();
 	    return view('index')->with('datas', $data);
-	    dd($data);
 	}
 }

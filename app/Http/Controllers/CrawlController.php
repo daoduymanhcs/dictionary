@@ -100,11 +100,11 @@ class CrawlController extends Controller
                 $connection->word_name = $word;
                 $connection->core_name = $core_name;
                 $test = $connection->save();
-                $this->createMeaning($connection->id, $author_id, $meaning);
+                $this->createMeaning($connection->id, $author_id, $meaning, $url);
             } else {
                 $wordArray = $dataArray[0];
                 $word_id = $wordArray['id'];
-                $this->createMeaning($word_id, $author_id, $meaning);
+                $this->createMeaning($word_id, $author_id, $meaning, $url);
             } 
         }
     }
@@ -230,7 +230,7 @@ class CrawlController extends Controller
         }
     }
 
-    private function createMeaning($word_id, $author_id, $meaning) {
+    private function createMeaning($word_id, $author_id, $meaning, $url) {
         $checkMeaning = Meaning::search($word_id, $author_id);
         $MeaningArray = $checkMeaning->toArray();
         if(empty($MeaningArray)) {
@@ -238,6 +238,7 @@ class CrawlController extends Controller
             $CreateMeaning->word_id = $word_id;
             $CreateMeaning->author_id = $author_id;
             $CreateMeaning->meaning_meaning = $meaning;
+            $CreateMeaning->meaning_url = $url;
             $CreateMeaning->meaning_status = 0;
             $CreateMeaning->meaning_like = rand(0,30);
             $CreateMeaning->meaning_dislike = rand(0,30);

@@ -7,9 +7,9 @@
 		<div class="row">
 		  <div class="col-md-6 col-md-offset-2">
 		  	<div class="introduction">
-		  		<h1>từ-điển.com</h1>
-		  		<p>Từ điển luôn cập nhật thuật ngữ mới nhất, xu hướng nhất. Bạn có thể giúp đỡ cộng đồng bằng cách thêm từ và ý nghĩa mới. </p>
-		  		<p>Từ điển cung cấp {{$datas->total()}} ý nghĩa</p>
+		  		<h1>Tratunhanh.com</h1>
+		  		<p>Tratunhanh.com luôn cập nhật thuật ngữ mới nhất, xu hướng nhất. Bạn có thể giúp đỡ cộng đồng bằng cách thêm từ và ý nghĩa mới. </p>
+		  		<p>Từ điển cung cấp {{$datas->total()}} ý nghĩa.</p>
 		  	</div>
 		  	@foreach ($datas as $data)
 			  	<div class="detail">
@@ -26,7 +26,13 @@
 			  		@endif
 			  	</div>
 			@endforeach
-			<div class="text-center">{{ $datas->links() }}</div>
+			<!-- <div class="text-center">{{ $datas->links() }}</div> -->
+			<nav aria-label="...">
+			  <ul class="pager">
+			    <li class="previous {{$datas->previousPageUrl() ? '' : 'disabled'}}"><a href="{{$datas->previousPageUrl()}}"><span aria-hidden="true">&larr;</span> Trang trước</a></li>
+			    <li class="next {{$datas->nextPageUrl() ? '' : 'disabled'}}"><a href="{{$datas->nextPageUrl()}}">Trang sau <span aria-hidden="true">&rarr;</span></a></li>
+			  </ul>
+			</nav>
 		  </div>
 		</div>
 	</div>
