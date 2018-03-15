@@ -48,4 +48,18 @@ class Meaning extends Model
                         ->paginate(15);
     } 
 
+    // 
+    public function scopeIncrementLike($query, $meaning_id)
+    {
+        return $query->where('id', '=', $meaning_id)
+                        ->increment('meaning_like');
+    }
+
+    // update increment dislike
+    public function scopeIncrementDislike($query, $meaning_id)
+    {
+        return $query->where('id', '=', $meaning_id)
+                        ->increment('meaning_dislike');
+    }  
+
 }

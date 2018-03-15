@@ -24,6 +24,7 @@ Route::prefix('admin')->group(function () {
 
 // action frontend
 Route::post('update-meaning-like', 'Object\MeaningController@updateMeaningLike');
+Route::post('update-meaning-dislike', 'Object\MeaningController@updateMeaningDislike');
 
 /*sub pages*/
 Route::get('contact', function () {
