@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="https://getbootstrap.com/docs/3.3/favicon.ico">
 
-    <title>{{ isset($word) ? $word. ' nghĩa là gì' : 'Định nghĩa' }}</title>
+    <title>{{ isset($word) ? $word. ' nghĩa là gì' : 'Tra từ nhanh' }}</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
