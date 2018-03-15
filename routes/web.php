@@ -32,9 +32,8 @@ Route::get('contact', function () {
 });
 
 // Route::resource('crawls', 'CrawlController');
-Route::get('login', 'AuthController@index');
-Route::post('login', 'AuthController@index');
-
+/*Route::get('login', 'AuthController@index');
+Route::post('login', 'AuthController@index');*/
 
 Auth::routes();
 

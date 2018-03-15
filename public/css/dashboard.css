@@ -9,19 +9,19 @@ body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .navbar-brand {
-    color: #fff !important;
-    font-weight: bold;
-    font-size: 18px;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .navbar-default, .footer {
-    background-color: #006e33;
-    border-color: #006e33;
+  background-color: #006e33;
+  border-color: #006e33;
 }
 
 a {
-    text-decoration: none !important;
-    color: #1e9253;
+  text-decoration: none !important;
+  color: #1e9253;
 }
 
 p {
@@ -31,21 +31,24 @@ p {
   text-align: justify;
 }
 .nav>li>a {
-    color: #fff !important;
-    /*font-weight: bold;*/
-    font-size: 18px;
+  color: #fff !important;
+  /*font-weight: bold;*/
+  font-size: 18px;
+}
+.detail-header i:hover {
+  color: #006e33;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 h1 {
-    font-size: 26px;
-    font-weight: 700;
+  font-size: 26px;
+  font-weight: 700;
 }
 
 h2 {
-    font-size: 22px;
-    font-weight: 600;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .detail {

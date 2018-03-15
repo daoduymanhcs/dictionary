@@ -14,8 +14,8 @@
 			  	<div class="detail">
 			  		<div class="detail-header">
 			  			<div class="pull-right">
-			  				{{$data->meaning_like}} <i class="far fa-thumbs-up fa-2x"></i>
-			  				{{$data->meaning_dislike}} <i class="far fa-thumbs-down fa-2x"></i>
+			  				<span id="like_{{$data->id}}">{{$data->meaning_like}}</span> <i class="far fa-thumbs-up fa-2x" onclick="updateMeaningLike({{$data->id}})"></i>
+			  				<span id="dislike_{{$data->id}}">{{$data->meaning_dislike}}</span> <i class="far fa-thumbs-down fa-2x" onclick="updateMeaningDislike({{$data->id}})"></i>
 			  			</div>
 						<h2><a href="{{$data->core_name}}">{{ucfirst($data->word_name)}}</a></h2>
 			  		</div>
@@ -28,4 +28,8 @@
 		  </div>
 		</div>
 	</div>
+@endsection
+
+@section('script')
+<script src="{{ asset('js/frontend.js') }}"></script>
 @endsection

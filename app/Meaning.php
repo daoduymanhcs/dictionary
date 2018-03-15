@@ -26,8 +26,8 @@ class Meaning extends Model
                         ->join('authors', 'meanings.author_id', '=', 'authors.id')
                         ->where('meanings.meaning_status', '=', 1)
                         ->where('words.core_name', '=', $core_name)
-                        ->orderBy('meanings.id', 'desc')
-                        ->select('words.word_name', 'words.core_name', 'meanings.meaning_meaning', 'meanings.meaning_like', 'meanings.meaning_dislike', 'meanings.meaning_sex', 'authors.author_name')
+                        ->orderBy('meanings.meaning_like', 'desc')
+                        ->select('words.word_name', 'words.core_name', 'meanings.id', 'meanings.meaning_meaning', 'meanings.meaning_like', 'meanings.meaning_dislike', 'meanings.meaning_sex', 'authors.author_name')
                         ->get();
     } 
 
