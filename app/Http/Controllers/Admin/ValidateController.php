@@ -21,7 +21,15 @@ class ValidateController extends Controller
 
     public function index() {
     	$datas = Meaning::validate();
-    	return view('admin.validate.validate')->with('datas', $datas);
+        $meanings = $datas->items();
+        $meaningIds = array();
+        foreach ($meanings as $key => $meaning) {
+            array_push($meaningIds, $meaning->id);
+        }
+        $ids = implode (",", $meaningIds);
+/*        $array = explode(',', $str);
+        dd($array);*/
+    	return view('admin.validate.validate')->with('datas', $datas)->with('ids', $ids);
     	dd($data);
     }
 
@@ -43,5 +51,12 @@ class ValidateController extends Controller
         $meaning->save();    
         $reponseArray = array('status' => true, 'id' => $id);
         echo json_encode($reponseArray);    
+    }
+    /*update all page meaning status*/
+    public function updatePageMeaningStatus(Request $request) {
+        $idMeaningArray = $request->input('id_meaning_array');
+        Meaning::whereIn('id', $idMeaningArray)->update(['meaning_status' => 1]);
+        $reponseArray = array('status' => true, 'id_meaning_array' => $idMeaningArray);
+        echo json_encode($reponseArray);
     }
 }

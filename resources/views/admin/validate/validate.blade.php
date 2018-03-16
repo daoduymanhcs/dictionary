@@ -34,6 +34,23 @@
                     </td>
                   </tr>
                 @endforeach
+                @if(!empty($ids))
+                  <tr id="">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <div class="btn-group btn-group-justified btn-group-modify" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-success" onclick="updatePageMeaningStatus(Array({{$ids}}))"><i class="fas fa-check"></i></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-danger" onclick=""><i class="far fa-trash-alt"></i></button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                @endif
               </tbody>
             </table>
             <div class="text-center">{{ $datas->links() }}</div>
@@ -77,6 +94,21 @@
             }
           }
       });
+  }
+
+  function updatePageMeaningStatus($idArrays) {
+      $.ajax({
+          url: '/admin/update-page-meaning-status',
+          type: 'post',
+          data: { id_meaning_array: $idArrays},
+          dataType: 'JSON',
+          success: function(response){
+            if(response.status) {
+              console.log(response);
+              location.reload();
+            }
+          }
+      });    
   }
 </script>
 @endsection

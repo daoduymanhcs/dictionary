@@ -20,6 +20,7 @@ Route::prefix('admin')->group(function () {
 	Route::get('validate', 'Admin\ValidateController@index')->name('validate');
 	Route::post('delete-meaning', 'Admin\ValidateController@deleteMeaning')->name('delete-meaning');
 	Route::post('update-meaning-status', 'Admin\ValidateController@updateMeaningStatus');
+	Route::post('update-page-meaning-status', 'Admin\ValidateController@updatePageMeaningStatus');
 });
 
 // action frontend
