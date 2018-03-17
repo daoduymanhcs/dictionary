@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <!-- saved from url=(0053)https://getbootstrap.com/docs/3.3/examples/dashboard/ -->
 <html lang="vi">
-  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="vYVY8hc7l_mLqGMZPTj1ASWPsJnXpNl5u2pxLTrvTG0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="{{ isset($word) ? 'Từ điển có '.count($datas).' ý nghĩa của '.$word.'.Bạn có thể thêm ý nghĩa của từ '.$word : 'Từ điển luôn cập nhật thuật ngữ mới nhất, xu hướng nhất. Bạn có thể giúp đỡ cộng đồng bằng cách thêm từ và ý nghĩa mới.' }}">
