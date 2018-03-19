@@ -11,6 +11,13 @@
 |
 */
 
+/*
+	Sitemap
+*/
+Route::get('/sitemap', 'SitemapController@index');
+Route::get('/sitemap/alphabet/{a}', 'SitemapController@alphabet');
+Route::get('/sitemap/common', 'SitemapController@common');
+
 Route::prefix('admin')->group(function () {
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/getData', 'CrawlController@getInputWebsite')->name('fetch_website');

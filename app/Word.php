@@ -19,5 +19,10 @@ class Word extends Model
         				->orderBy('words.created_at', 'desc')
 				        ->limit($number)
 				        ->get();
-    }    
+    }  
+
+    public function scopeAlphabet($query,$first_letter)
+    {
+        return $query->where('core_name', 'LIKE', $first_letter.'%')->select('core_name', 'updated_at')->get();
+    }  
 }
