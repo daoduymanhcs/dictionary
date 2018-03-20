@@ -23,6 +23,6 @@ class Word extends Model
 
     public function scopeAlphabet($query,$first_letter)
     {
-        return $query->where('core_name', 'LIKE', $first_letter.'%')->select('core_name', 'updated_at')->get();
+        return $query->where('core_name', 'LIKE', $first_letter.'%')->select('core_name', 'updated_at', 'id')->get();
     }  
 }
