@@ -11,8 +11,7 @@ if(! function_exists('remove_text')) {
 	function remove_text($string) {
 		$removeLinks =  preg_replace('/<[^>]+>/', '', $string);
 		$removeLinks = preg_replace('/:/', '', $removeLinks);
-		// remove unexpected words in beginning and ending
-		// $string = preg_replace('/(^([^a-zA-Z0-9])*|([^a-zA-Z0-9])*$)/', '', $removeLinks);
+		$removeLinks = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $removeLinks);
 		return $removeLinks;
 		// return $string;
 	}
