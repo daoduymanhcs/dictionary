@@ -4,11 +4,6 @@
     @foreach ($data as $word)
         <url>
             <loc>{{env('APP_URL', 'Laravel')}}/{!!html_entity_decode($word->core_name)!!}</loc>
-		    <xhtml:link 
-		                 rel="alternate"
-		                 hreflang="vi"
-		                 href="{{env('APP_URL', 'Laravel')}}/{!!html_entity_decode($word->core_name)!!}"
-		                 />
             <lastmod>{{ $word->updated_at->tz('UTC')->toAtomString() }}</lastmod>
             <priority>0.8</priority>
         </url>

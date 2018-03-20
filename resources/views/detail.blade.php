@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 @section('css')
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet" />
+    <link rel="alternate" href="http://www.tratunhanh.com/" hreflang="vi" />
 @endsection
 @section('content')
 	<div class="container">
