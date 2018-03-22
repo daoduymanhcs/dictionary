@@ -20,9 +20,9 @@ class SitemapController extends Controller
 
 	public function alphabet($a) {
 		$data = Word::alphabet($a);
-		foreach ($data as $key => $value) {
+/*		foreach ($data as $key => $value) {
 			echo $value->core_name.' '.$value->id.'<br>';
-		} die;
+		} die;*/
 		return response()->view('sitemap.alphabet',[
 						        'data' => $data,
 						    ])->header('Content-Type', 'text/xml');
