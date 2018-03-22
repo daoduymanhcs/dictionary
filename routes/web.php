@@ -16,6 +16,7 @@
 */
 Route::get('/sitemap', 'SitemapController@index');
 Route::get('/sitemap/alphabet/{a}', 'SitemapController@alphabet');
+Route::get('/sitemap/alphabet-test/{a}', 'SitemapController@test');
 Route::get('/sitemap/common', 'SitemapController@common');
 
 Route::prefix('admin')->group(function () {
