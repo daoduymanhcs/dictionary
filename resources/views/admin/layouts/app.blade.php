@@ -57,8 +57,17 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
-    @yield('content')
+    <div class="container">
+      <div class="row">
+      @yield('content')
+        <!-- ads -->
+        <div class="col-md-4">
+          <div class="ads" style="margin-top: 20px; margin-bottom: 20px">
+            <a href="https://www.facebook.com/photo.php?fbid=10215039801284757&set=a.3170908987940.2150488.1121952694&type=3&theater" target="_blank"><img src="images/khanh.jpeg" class="img-responsive" alt=""></a>
+          </div>
+        </div>
+      </div>
+    </div>
     <footer class="footer">
       <div class="container">
         <span>Website cung cấp thông tin về thuật ngữ miễn phí cho người Việt Nam. Mọi ý kiến đóng góp xin vui lòng liên hệ tại đây!</span>
