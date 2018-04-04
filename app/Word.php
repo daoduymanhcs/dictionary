@@ -24,5 +24,11 @@ class Word extends Model
     public function scopeAlphabet($query,$first_letter)
     {
         return $query->where('core_name', 'LIKE', $first_letter.'%')->select('core_name', 'updated_at', 'id')->get();
-    }  
+    } 
+
+    // search for words
+    public function scopeSearchByWord($query, $word_name) {
+        return $query->join('meanings', 'words.id', '=', 'meanings.word_id')
+                        ->where('core_name', 'LIKE', '%'.$word_name.'%')->get();
+    } 
 }

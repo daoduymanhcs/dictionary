@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Meaning;
+use App\Word;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -59,4 +60,19 @@ class ValidateController extends Controller
         $reponseArray = array('status' => true, 'id_meaning_array' => $idMeaningArray);
         echo json_encode($reponseArray);
     }
+
+    public function searchWord(Request $request) {
+        if ($request->isMethod('get')) {
+            return view('admin.validate.search');
+        }
+        $validatedData = $request->validate([
+            'word' => 'required',
+        ]);
+        $word = $request->input('word');
+        $word_name = vi_slug($word);
+        $data = Word::searchByWord($word_name);
+        return view('admin.validate.search')->with('datas', $data);
+    }
+
+    // edit word and meaning
 }
