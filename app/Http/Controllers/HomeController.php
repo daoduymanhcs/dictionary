@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        echo "string";
         $data = Meaning::top();
         return view('home')->with('datas', $data);
     }
